@@ -1,22 +1,20 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'dagger.hilt.android.plugin'
 }
 
 android {
-    namespace 'com.vasanth.apparchitecture'
+    namespace 'com.vasanth.commoncore'
     compileSdk ConfigData.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.vasanth.apparchitecture"
         minSdk ConfigData.minSdkVersion
         targetSdk ConfigData.targetSdkVersion
-        versionCode 1
-        versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -47,29 +45,20 @@ android {
 
 dependencies {
 
-    // Module
-    implementation project(Dependencies.commonCore)
-
     // Kotlin
     implementation Dependencies.kotlin
     implementation Dependencies.coroutines
 
     // Android
+    implementation Dependencies.coreKtx
+    implementation Dependencies.appCompat
     implementation Dependencies.viewModelKtx
     implementation(platform(Dependencies.composeBom))
     implementation Dependencies.composeMaterial
     implementation Dependencies.composeUITooling
     implementation Dependencies.composeUIToolingPreview
-    implementation(Dependencies.activityCompose)
-    implementation(Dependencies.viewModelCompose)
-    implementation(Dependencies.navigationFragmentKtx)
-    implementation(Dependencies.navigationUIKtx)
 
     // Google
     implementation Dependencies.daggerHiltAndroid
     kapt Dependencies.daggerHiltAndroidCompiler
-
-    // Others
-    implementation Dependencies.retrofit
-    implementation Dependencies.retrofitConverterGson
 }
