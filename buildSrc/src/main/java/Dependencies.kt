@@ -23,10 +23,20 @@ object Dependencies {
     val navigationUIKtx = "androidx.navigation:navigation-ui-ktx:${Versions.navigation}"
 
     // Google
-    var daggerHiltAndroid = "com.google.dagger:hilt-android:${Versions.daggerHilt}"
-    var daggerHiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${Versions.daggerHilt}"
+    val daggerHiltAndroid = "com.google.dagger:hilt-android:${Versions.daggerHilt}"
+    val daggerHiltAndroidCompiler = "com.google.dagger:hilt-android-compiler:${Versions.daggerHilt}"
 
     // Others
-    var retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
-    var retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+    val retrofit = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
+    val retrofitConverterGson = "com.squareup.retrofit2:converter-gson:${Versions.retrofit}"
+
+    // Test
+    val junit = "junit:junit:${Versions.junit}"
+    val androidXJunitExtKtx = "androidx.test.ext:junit-ktx:${Versions.androidXJunitExt}"
+    val robolectric = "org.robolectric:robolectric:${Versions.robolectric}"
+    val mockitoKotlin = "org.mockito.kotlin:mockito-kotlin:${Versions.mockitoKotlin}"
+    val hamcrest = "org.hamcrest:hamcrest:${Versions.hamcrest}"
+    val kotlinFixture = "com.appmattus.fixture:fixture:${Versions.kotlinFixture}"
+    val coroutinesTest = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
+    val archCoreTesting = "androidx.arch.core:core-testing:${Versions.archCore}"
 }

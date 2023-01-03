@@ -10,6 +10,7 @@ object Versions {
     const val activity = "1.5.1"
     const val fragment = "1.5.2"
     const val lifecycle = "2.5.1"
+    var archCore = "2.1.0"
     const val composeBom = "2022.11.00"
     const val composeCompiler = "1.3.2"
     const val navigation = "2.5.3"
@@ -19,4 +20,12 @@ object Versions {
 
     // Other
     var retrofit = "2.9.0"
+
+    // Test
+    var junit = "4.13.2"
+    var androidXJunitExt = "1.1.3"
+    var robolectric = "4.8.2"
+    var mockitoKotlin = "4.0.0"
+    var hamcrest = "2.2"
+    var kotlinFixture = "1.2.0"
 }

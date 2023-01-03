@@ -43,6 +43,12 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = Versions.composeCompiler
     }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -72,4 +78,16 @@ dependencies {
     // Others
     implementation Dependencies.retrofit
     implementation Dependencies.retrofitConverterGson
+
+    // Test
+    testImplementation Dependencies.junit
+    testImplementation Dependencies.robolectric
+    //testImplementation Dependencies.androidXCoreKtx
+    testImplementation Dependencies.androidXJunitExtKtx
+    testImplementation Dependencies.mockitoKotlin
+    testImplementation Dependencies.hamcrest
+    testImplementation Dependencies.kotlinFixture
+    testImplementation Dependencies.archCoreTesting
+    testImplementation Dependencies.coroutinesTest
+    testImplementation Dependencies.hamcrest
 }
