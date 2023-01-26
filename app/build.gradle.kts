@@ -59,13 +59,5 @@ dependencies {
     implementation(libs.bundles.retrofit)
 
     // Test
-    testImplementation(libs.junit)
-    testImplementation(libs.robolectric)
-    testImplementation(libs.androidXJunitExtKtx)
-    testImplementation(libs.mockitoKotlin)
-    testImplementation(libs.hamcrest)
-    testImplementation(libs.kotlinFixture)
-    testImplementation(libs.archCoreTesting)
-    testImplementation(libs.coroutinesTest)
-    testImplementation(libs.hamcrest)
+    testImplementation(libs.bundles.unitTest)
 }

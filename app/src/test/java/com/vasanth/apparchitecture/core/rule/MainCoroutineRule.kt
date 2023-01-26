@@ -1,4 +1,4 @@
-package com.vasanth.apparchitecture.rule
+package com.vasanth.apparchitecture.core.rule
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi

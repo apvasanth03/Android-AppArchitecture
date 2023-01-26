@@ -11,7 +11,7 @@ fun UserListScreen() {
     val viewModel: UserListViewModel = viewModel()
 
     AndroidAppArchitectureTheme() {
-        val state = viewModel.uiState.collectAsState().value
+        val state = viewModel.uiStateStream.collectAsState().value
         UserListScreenContent(
             state = state,
             handleEvent = viewModel::handleEvent

@@ -13,11 +13,11 @@ import kotlinx.coroutines.launch
 abstract class BaseViewModel<STATE, EVENT, SIDEEFECT> : ViewModel() {
 
     // region Variable Declaration
-    protected val _uiState by lazy { MutableStateFlow(initialState) }
-    protected val _sideEffect = Channel<SIDEEFECT>(Channel.BUFFERED)
+    protected val _uiStateStream by lazy { MutableStateFlow(initialState) }
+    protected val _sideEffectStream = Channel<SIDEEFECT>(Channel.BUFFERED)
 
-    val uiState: StateFlow<STATE> by lazy { _uiState }
-    val sideEffect: Flow<SIDEEFECT> = _sideEffect.receiveAsFlow()
+    val uiStateStream: StateFlow<STATE> by lazy { _uiStateStream }
+    val sideEffectStream: Flow<SIDEEFECT> = _sideEffectStream.receiveAsFlow()
     // endregion
 
     // region Abstract Members.
@@ -29,7 +29,7 @@ abstract class BaseViewModel<STATE, EVENT, SIDEEFECT> : ViewModel() {
     // region Helper Methods
     protected fun sendSideEffect(sideEffect: SIDEEFECT) {
         viewModelScope.launch {
-            _sideEffect.send(sideEffect)
+            _sideEffectStream.send(sideEffect)
         }
     }
     // endregion

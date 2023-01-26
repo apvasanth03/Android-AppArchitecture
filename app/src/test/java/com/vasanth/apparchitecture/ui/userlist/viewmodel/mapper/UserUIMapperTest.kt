@@ -1,9 +1,12 @@
 package com.vasanth.apparchitecture.ui.userlist.viewmodel.mapper
 
-import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.appmattus.kotlinfixture.kotlinFixture
+import com.vasanth.apparchitecture.core.dsl.Given
+import com.vasanth.apparchitecture.core.dsl.Then
+import com.vasanth.apparchitecture.core.dsl.When
+import com.vasanth.apparchitecture.core.dsl.gherkin
+import com.vasanth.apparchitecture.core.rule.MainCoroutineRule
 import com.vasanth.apparchitecture.data.model.User
-import com.vasanth.apparchitecture.rule.MainCoroutineRule
+import com.vasanth.apparchitecture.testfixture.data.UserFixture.generateUser
 import com.vasanth.apparchitecture.ui.userlist.viewmodel.model.UserUIModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runTest
@@ -12,14 +15,13 @@ import org.hamcrest.Matchers.equalTo
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import org.junit.runner.RunWith
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 
-@RunWith(AndroidJUnit4::class)
 @ExperimentalCoroutinesApi
 class UserUIMapperTest {
 
+    // region Variable Declaration
     @get:Rule
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
@@ -27,36 +29,46 @@ class UserUIMapperTest {
     val mainCoroutineRule = MainCoroutineRule()
 
     lateinit var mapper: UserUIMapper
+    // endregion
 
-    private val kFixture = kotlinFixture()
-
+    // region Setup
     @Before
     fun setUp() {
         mapper = UserUIMapper(
             dispatcher = mainCoroutineRule.testDispatcher
         )
     }
+    // endregion
 
+    // region Test - Mapper
     @Test
-    fun `GIVEN User - WHEN Mapped - SHOULD return expected Output`() = runTest {
-        // Given
-        val user = kFixture<User>()
+    fun `Test - Mapper`() = gherkin {
+        runTest {
+            val user: User
+            Given("User") {
+                user = generateUser()
+            }
 
-        // When
-        val result = mapper.invoke(user)
+            val result: UserUIModel
+            When("Mapped") {
+                result = mapper.invoke(user)
+            }
 
-        // Then
-        val expectedResult = with(user) {
-            UserUIModel(
-                id = id,
-                name = "$firstName $lastName",
-                email = email,
-                avatar = avatar
-            )
+            Then("Should - return expected Output") {
+                val expectedResult = with(user) {
+                    UserUIModel(
+                        id = id,
+                        name = "$firstName $lastName",
+                        email = email,
+                        avatar = avatar
+                    )
+                }
+                assertThat(
+                    result,
+                    equalTo(expectedResult)
+                )
+            }
         }
-        assertThat(
-            result,
-            equalTo(expectedResult)
-        )
     }
+    // endregion
 }

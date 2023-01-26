@@ -10,14 +10,14 @@ import com.vasanth.apparchitecture.ui.userlist.view.components.data.UserListData
 import com.vasanth.apparchitecture.ui.userlist.view.components.error.UserListError
 import com.vasanth.apparchitecture.ui.userlist.view.components.loading.UserListLoading
 import com.vasanth.apparchitecture.ui.userlist.view.components.sampledata.UserListSampleData
-import com.vasanth.apparchitecture.ui.userlist.viewmodel.model.UserListEvent
+import com.vasanth.apparchitecture.ui.userlist.viewmodel.model.UserListUIEvent
 import com.vasanth.apparchitecture.ui.userlist.viewmodel.model.UserListUIState
 import com.vasanth.commoncore.ui.view.theme.AndroidAppArchitectureTheme
 
 @Composable
 fun UserListScreenContent(
     state: UserListUIState,
-    handleEvent: (event: UserListEvent) -> Unit
+    handleEvent: (event: UserListUIEvent) -> Unit
 ) {
     Surface(
         modifier = Modifier.fillMaxSize()
@@ -31,7 +31,7 @@ fun UserListScreenContent(
                 UserListData(
                     users = state.users,
                     onItemClicked = { user ->
-                        handleEvent(UserListEvent.ItemClicked(user = user))
+                        handleEvent(UserListUIEvent.ItemClicked(user = user))
                     }
                 )
             }

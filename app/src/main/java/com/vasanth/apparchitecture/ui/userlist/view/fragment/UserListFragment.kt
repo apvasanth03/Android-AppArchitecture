@@ -47,7 +47,7 @@ class UserListFragment : BaseComponentFragment() {
     private fun observeSideEffect() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.sideEffect.collect {
+                viewModel.sideEffectStream.collect {
                     handleSideEffect(it)
                 }
             }

@@ -1,8 +1,8 @@
 package com.vasanth.apparchitecture.ui.userlist.viewmodel.model
 
-sealed interface UserListEvent {
+sealed interface UserListUIEvent {
 
     data class ItemClicked(
         val user: UserUIModel
-    ) : UserListEvent
+    ) : UserListUIEvent
 }
