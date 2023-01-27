@@ -1,10 +1,10 @@
 package com.vasanth.apparchitecture.ui.userlist.viewmodel
 
 import androidx.lifecycle.viewModelScope
-import com.vasanth.apparchitecture.data.model.UserListResponse
+import com.vasanth.apparchitecture.data.model.User
 import com.vasanth.apparchitecture.domain.usecase.GetUserListUseCase
 import com.vasanth.apparchitecture.ui.userlist.viewmodel.mapper.UserUIMapper
-import com.vasanth.apparchitecture.ui.userlist.viewmodel.model.UserListEvent
+import com.vasanth.apparchitecture.ui.userlist.viewmodel.model.UserListUIEvent
 import com.vasanth.apparchitecture.ui.userlist.viewmodel.model.UserListSideEffect
 import com.vasanth.apparchitecture.ui.userlist.viewmodel.model.UserListUIState
 import com.vasanth.apparchitecture.ui.userlist.viewmodel.model.UserUIModel
@@ -19,7 +19,7 @@ import javax.inject.Inject
 class UserListViewModel @Inject constructor(
     private val getUserListUseCase: GetUserListUseCase,
     private val userUIMapper: UserUIMapper
-) : BaseViewModel<UserListUIState, UserListEvent, UserListSideEffect>() {
+) : BaseViewModel<UserListUIState, UserListUIEvent, UserListSideEffect>() {
 
     // Properties
     override val initialState: UserListUIState
@@ -36,7 +36,7 @@ class UserListViewModel @Inject constructor(
             val result = getUserListUseCase.invoke(parameters = param)
             when (result) {
                 is Result.Success -> {
-                    loadUsersSuccess(response = result.data)
+                    loadUsersSuccess(users = result.data)
                 }
                 is Result.Error -> {
                     loadUsersFailure()
@@ -45,21 +45,21 @@ class UserListViewModel @Inject constructor(
         }
     }
 
-    private suspend fun loadUsersSuccess(response: UserListResponse) {
-        val uiModels = response.data.map {
+    private suspend fun loadUsersSuccess(users: List<User>) {
+        val uiModels = users.map {
             userUIMapper(input = it)
         }
-        _uiState.update { UserListUIState.Data(users = uiModels) }
+        _uiStateStream.update { UserListUIState.Data(users = uiModels) }
     }
 
     private fun loadUsersFailure() {
-        _uiState.update { UserListUIState.Error }
+        _uiStateStream.update { UserListUIState.Error }
     }
 
     // Handle Event
-    override fun handleEvent(event: UserListEvent) {
+    override fun handleEvent(event: UserListUIEvent) {
         when (event) {
-            is UserListEvent.ItemClicked -> {
+            is UserListUIEvent.ItemClicked -> {
                 onItemClicked(userUIModel = event.user)
             }
         }
